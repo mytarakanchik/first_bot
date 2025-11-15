@@ -2,7 +2,7 @@ import telebot
 import random
 import os
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("BOT_TOKEN")  # переменная окружения на Render
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -30,4 +30,6 @@ def respond(message):
     if any(trigger in text for trigger in trigger_phrases):
         bot.send_message(message.chat.id, random.choice(support_phrases))
 
-bot.infinity_polling()
+# Убираем webhook и запускаем polling
+bot.remove_webhook()
+bot.polling(none_stop=True)
